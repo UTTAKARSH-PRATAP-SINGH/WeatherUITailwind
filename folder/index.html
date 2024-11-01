@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="proj.css">
+    <style>
+        /* Add custom styles here to complement Tailwind */
+        .icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Center search bar */
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .search-bar:hover {
+            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+
+    <!-- Search Bar (Centered) -->
+    <div class="bg-gray-800 p-4 rounded-lg flex justify-center items-center search-bar">
+        <input id="cityInput" type="text" placeholder="Enter City" class="bg-gray-700 text-white rounded-lg px-4 py-2 w-full" />
+        <button onclick="getWeather()" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Search</button>
+    </div>
+
+    <!-- Weather Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 max-w-5xl mx-auto">
+
+        <!-- Wind -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="storm.png" alt="Wind icon" class="icon">
+            <h2 class="text-xl font-bold">Wind</h2>
+            <p class="text-3xl font-semibold">8 km/h</p>
+            <p class="text-md">Feels Like 28°C</p>
+        </div>
+
+        <!-- Temperature -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="sunandcloud.png" alt="Temperature icon" class="icon">
+            <h2 class="text-xl font-bold">Mau, Uttar Pradesh</h2>
+            <p class="text-5xl font-semibold">19°C</p>
+            <p class="text-lg">Showers</p>
+            <div class="text-sm mt-2">
+                <p>Precipitation: 9 mm in 2h</p>
+                <p>Wind: 9 km/h</p>
+                <p>Humidity: 83%</p>
+            </div>
+        </div>
+
+        <!-- Humidity -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="humidity.png" alt="Humidity icon" class="icon">
+            <h2 class="text-xl font-bold">Humidity</h2>
+            <p class="text-4xl font-semibold">48%</p>
+        </div>
+
+        <!-- Sunrise -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="sun.png" alt="Sunrise icon" class="icon">
+            <h2 class="text-xl font-bold">Sunrise</h2>
+            <p class="text-4xl font-semibold">6:22 AM</p>
+        </div>
+
+        <!-- Current Day -->
+        <div class="col-span-1 md:col-span-2 bg-gray-800 rounded-lg p-6 text-center card">
+            <img src="clouds.png" alt="Current weather icon" class="icon mx-auto">
+            <h2 class="text-5xl font-semibold">19°C</h2>
+            <p class="text-lg">Sunny</p>
+            <p class="text-md">Mau, Uttar Pradesh</p>
+            <div class="grid grid-cols-5 gap-4 mt-4 text-sm">
+                <div class="text-center">
+                    <p>Thu</p>
+                    <p class="font-semibold">16°C</p>
+                    <p>12°C</p>
+                </div>
+                <div class="text-center">
+                    <p>Fri</p>
+                    <p class="font-semibold">17°C</p>
+                    <p>13°C</p>
+                </div>
+                <div class="text-center">
+                    <p>Sat</p>
+                    <p class="font-semibold">18°C</p>
+                    <p>14°C</p>
+                </div>
+                <div class="text-center">
+                    <p>Sun</p>
+                    <p class="font-semibold">19°C</p>
+                    <p>15°C</p>
+                </div>
+                <div class="text-center">
+                    <p>Mon</p>
+                    <p class="font-semibold">21°C</p>
+                    <p>16°C</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Precipitation -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="mixed-precipitation.png" alt="Precipitation icon" class="icon">
+            <h2 class="text-xl font-bold">Precipitation</h2>
+            <p class="text-2xl font-semibold">21%</p>
+        </div>
+
+        <!-- Night -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="night.png" alt="Night icon" class="icon">
+            <h2 class="text-xl font-bold">Night</h2>
+            <p class="text-4xl font-semibold">17°C</p>
+        </div>
+
+        <!-- Weekly Forecast -->
+        <div class="bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center card">
+            <img src="weather-app.png" alt="Weekly forecast icon" class="icon">
+            <h2 class="text-xl font-bold">Weekly Forecast</h2>
+            <p class="text-2xl font-semibold">21°C</p>
+            <p class="text-sm">Sunday</p>
+        </div>
+    </div>
+
+    <script src="weather.js"></script>
+</body>
+
+</html>
